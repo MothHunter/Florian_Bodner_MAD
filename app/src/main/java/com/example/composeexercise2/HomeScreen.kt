@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -28,6 +29,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import coil.compose.AsyncImage
 import com.example.composeexercise2.models.Movie
 import com.example.composeexercise2.models.getMovies
 import com.example.composeexercise2.ui.theme.ComposeExercise2Theme
@@ -94,11 +96,13 @@ fun MovieItem(movie: Movie, onItemClick: (String) -> Unit ={}) {
     Card(modifier = Modifier.clickable{ onItemClick(movie.id)}) {
         Column() {
 
-            Box(contentAlignment = Alignment.TopEnd) {
-                Image(
-                    painter = painterResource(id = R.mipmap.avatar2),
-                    contentDescription = movie.title,
-                    modifier = Modifier.fillMaxWidth()
+            Box(contentAlignment = Alignment.TopEnd,
+                modifier = Modifier.fillMaxWidth(1f).aspectRatio(1.6f)) {
+                AsyncImage(
+                    model = movie.images.random(),
+                    contentDescription = "Scene from ${movie.title}",
+                    modifier = Modifier.fillMaxSize(1f),
+                    contentScale = ContentScale.Crop
                 )
                 ToggleIcon(Icons.Rounded.FavoriteBorder, Icons.Rounded.Favorite)
             }
