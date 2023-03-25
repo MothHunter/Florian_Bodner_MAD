@@ -1,14 +1,13 @@
 package com.example.composeexercise2
 
 
-import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
@@ -22,7 +21,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -38,11 +36,13 @@ import com.example.composeexercise2.ui.theme.ComposeExercise2Theme
 @Composable
 fun HomeScreen(navController: NavController) {
     ComposeExercise2Theme {
-        Column{
-            AppBar()
+        Column {
+            HomeAppBar()
             LazyColumn {
                 items(getMovies()) { movie ->
-                    MovieItem(movie) { movieID -> Log.d("DetailScreen", "MovieID: $movieID")}
+                    MovieRow(movie) { movieID ->
+                        navController.navigate(route = "detailscreen/$movieID")
+                    }
                 }
             }
         }
@@ -51,18 +51,22 @@ fun HomeScreen(navController: NavController) {
 }
 
 @Composable
-fun AppBar() {
+fun HomeAppBar() {
     TopAppBar {
-        Row(horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Text("Movies", fontSize = 24.sp)
             Spacer(modifier = Modifier.weight(1f))
             var expanded by remember { mutableStateOf(false) }
             // var selectedIndex by remember { mutableStateOf(0) }
             Box {
-                IconButton(onClick = {
-                    expanded = !expanded
-                }, ) {
+                IconButton(
+                    onClick = {
+                        expanded = !expanded
+                    },
+                ) {
                     Icon(
                         imageVector = Icons.Default.MoreVert,
                         contentDescription = "Open Options"
@@ -79,27 +83,30 @@ fun AppBar() {
                             )
                             Text(" Favorites", fontSize = 24.sp)
                         }
-
                     }
                 }
             }
-
-
         }
-
-
     }
 }
 
 @Composable
-fun MovieItem(movie: Movie, onItemClick: (String) -> Unit ={}) {
-    Card(modifier = Modifier.clickable{ onItemClick(movie.id)}) {
+fun MovieRow(movie: Movie, onItemClick: (String) -> Unit = {}) {
+    Card(
+        modifier = Modifier.padding(vertical = 5.dp).clickable { onItemClick(movie.id) },
+        shape = RoundedCornerShape(20.dp),
+        elevation = 10.dp
+    ) {
         Column() {
 
-            Box(contentAlignment = Alignment.TopEnd,
-                modifier = Modifier.fillMaxWidth(1f).aspectRatio(1.6f)) {
+            Box(
+                contentAlignment = Alignment.TopEnd,
+                modifier = Modifier
+                    .fillMaxWidth(1f)
+                    .aspectRatio(1.6f)
+            ) {
                 AsyncImage(
-                    model = movie.images.random(),
+                    model = movie.images[0],
                     contentDescription = "Scene from ${movie.title}",
                     modifier = Modifier.fillMaxSize(1f),
                     contentScale = ContentScale.Crop
@@ -120,7 +127,10 @@ fun AnimatedMovieNameRow(movie: Movie) {
         val interactionSource = remember {
             MutableInteractionSource()
         }
-        Row(horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Text(movie.title, fontSize = 24.sp)
             Spacer(Modifier.weight(1f))
 
@@ -190,7 +200,6 @@ fun ToggleIcon(iconStart: ImageVector, iconToggled: ImageVector) {
                     toggleState = !toggleState
                 }
                 .size(32.dp)
-
         )
     }
 }
