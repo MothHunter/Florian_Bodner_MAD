@@ -25,8 +25,8 @@ fun MovieNavigation() {
             backStackEntry ->
             DetailScreen(navController = navController,
                 movieId = backStackEntry.arguments?.getString("movieId"))
-            //DetailScreen(navController = navController)
         }
+        composable("favscreen") { FavoriteScreen(navController = navController)}
     }
 
 }

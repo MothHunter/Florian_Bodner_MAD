@@ -37,7 +37,7 @@ import com.example.composeexercise2.ui.theme.ComposeExercise2Theme
 fun HomeScreen(navController: NavController) {
     ComposeExercise2Theme {
         Column {
-            HomeAppBar()
+            HomeAppBar(navController = navController)
             LazyColumn {
                 items(getMovies()) { movie ->
                     MovieRow(movie) { movieID ->
@@ -46,12 +46,11 @@ fun HomeScreen(navController: NavController) {
                 }
             }
         }
-
     }
 }
 
 @Composable
-fun HomeAppBar() {
+fun HomeAppBar(navController: NavController) {
     TopAppBar {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -75,11 +74,12 @@ fun HomeAppBar() {
                 DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
                     DropdownMenuItem(onClick = {
                         expanded = false
+                        navController.navigate(route = "favscreen")
                     }) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Icon(
                                 imageVector = Icons.Rounded.Favorite,
-                                contentDescription = "Open Options"
+                                contentDescription = "Fav icon"
                             )
                             Text(" Favorites", fontSize = 24.sp)
                         }

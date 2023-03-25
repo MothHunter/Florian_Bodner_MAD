@@ -26,7 +26,7 @@ fun DetailScreen(navController: NavController, movieId: String?) {
         Text(text = "Error: no movie selected")
     } else {
         Column {
-            DetailsAppBar(navController = navController, movieName = movie.title)
+            BasicAppBar(navController = navController, label = movie.title)
             MovieRow(movie = movie)
             Text(text = "Movie Images",
                 textAlign = TextAlign.Center,
@@ -40,7 +40,7 @@ fun DetailScreen(navController: NavController, movieId: String?) {
 }
 
 @Composable
-fun DetailsAppBar(navController: NavController, movieName: String) {
+fun BasicAppBar(navController: NavController, label: String) {
     TopAppBar {
         Row(
             horizontalArrangement = Arrangement.spacedBy(20.dp),
@@ -52,7 +52,7 @@ fun DetailsAppBar(navController: NavController, movieName: String) {
                     navController.popBackStack()
                 })
             )
-            Text(movieName, fontSize = 24.sp)
+            Text(label, fontSize = 24.sp)
         }
     }
 }

@@ -29,15 +29,3 @@ class MainActivity : ComponentActivity() {
 
 
 
-/*
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    ComposeExercise2Theme {
-        HomeScreen()
-    }
-}
-*/
-
-
-
