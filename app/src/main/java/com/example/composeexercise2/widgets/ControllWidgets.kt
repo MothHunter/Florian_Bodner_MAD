@@ -15,9 +15,10 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.composeexercise2.models.Screen
 
 @Composable
-fun BasicAppBar(navController: NavController, label: String) {
+fun SimpleAppBar(navController: NavController, label: String) {
     TopAppBar {
         Row(
             horizontalArrangement = Arrangement.spacedBy(20.dp),
@@ -73,7 +74,7 @@ fun OptionsMenu (navController: NavController) {
 fun FavMenuItem(navController: NavController, parentExpanded: MutableState<Boolean>) {
     DropdownMenuItem(onClick = {
         parentExpanded.value = false
-        navController.navigate(route = "favscreen")
+        navController.navigate(route = Screen.FavoriteScreen.route)
     }) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(

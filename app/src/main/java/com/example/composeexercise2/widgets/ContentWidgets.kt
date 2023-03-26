@@ -3,6 +3,7 @@ package com.example.composeexercise2.widgets
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -26,8 +27,10 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.composeexercise2.models.Movie
+import com.example.composeexercise2.models.Screen
 
 @Composable
 fun MovieRow(movie: Movie, onItemClick: (String) -> Unit = {}) {
@@ -114,6 +117,17 @@ fun ImageRow(movie: Movie) {
                     modifier = Modifier.fillMaxHeight(1f),
                     contentScale = ContentScale.FillHeight
                 )
+            }
+        }
+    }
+}
+
+@Composable
+fun ScrollableMovieColumn (navController: NavController, movies: List<Movie>) {
+    LazyColumn {
+        items(movies) { movie ->
+            MovieRow(movie) { movieID ->
+                navController.navigate(route = Screen.DetailScreen.passId(movieID))
             }
         }
     }

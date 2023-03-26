@@ -9,7 +9,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.composeexercise2.models.getMovies
-import com.example.composeexercise2.widgets.BasicAppBar
+import com.example.composeexercise2.widgets.SimpleAppBar
 import com.example.composeexercise2.widgets.ImageRow
 import com.example.composeexercise2.widgets.MovieRow
 
@@ -20,7 +20,7 @@ fun DetailScreen(navController: NavController, movieId: String?) {
         Text(text = "Error: no movie selected")
     } else {
         Column {
-            BasicAppBar(navController = navController, label = movie.title)
+            SimpleAppBar(navController = navController, label = movie.title)
             MovieRow(movie = movie)
             Text(text = "Movie Images",
                 textAlign = TextAlign.Center,
