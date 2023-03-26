@@ -1,23 +1,17 @@
-package com.example.composeexercise2
+package com.example.composeexercise2.screens
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import coil.compose.AsyncImage
-import com.example.composeexercise2.models.Movie
 import com.example.composeexercise2.models.getMovies
+import com.example.composeexercise2.widgets.BasicAppBar
+import com.example.composeexercise2.widgets.ImageRow
+import com.example.composeexercise2.widgets.MovieRow
 
 @Composable
 fun DetailScreen(navController: NavController, movieId: String?) {
@@ -39,36 +33,3 @@ fun DetailScreen(navController: NavController, movieId: String?) {
     }
 }
 
-@Composable
-fun BasicAppBar(navController: NavController, label: String) {
-    TopAppBar {
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(20.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ){
-            Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "back",
-            modifier = Modifier.clickable(
-                onClick = {
-                    navController.popBackStack()
-                })
-            )
-            Text(label, fontSize = 24.sp)
-        }
-    }
-}
-
-@Composable
-fun ImageRow(movie: Movie) {
-    LazyRow(horizontalArrangement = Arrangement.spacedBy(15.dp)) {
-        items(movie.images) { movieImage -> 
-            Card(modifier = Modifier.fillMaxHeight(1f)) {
-                AsyncImage(
-                    model = movieImage,
-                    contentDescription = "Scene from ${movie.title}",
-                    modifier = Modifier.fillMaxHeight(1f),
-                    contentScale = ContentScale.FillHeight
-                )
-            }
-        }
-    }
-}

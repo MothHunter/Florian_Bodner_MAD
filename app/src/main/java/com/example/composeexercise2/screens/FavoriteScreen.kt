@@ -1,4 +1,4 @@
-package com.example.composeexercise2
+package com.example.composeexercise2.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.LazyColumn
@@ -7,6 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import com.example.composeexercise2.models.Movie
 import com.example.composeexercise2.models.getMovies
+import com.example.composeexercise2.widgets.MovieRow
+import com.example.composeexercise2.widgets.BasicAppBar
 
 @Composable
 fun FavoriteScreen(navController: NavController) {
